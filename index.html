@@ -8,4 +8,13 @@
 <body>
     Hi¡ let's start
 </body>
+<script src="./FB_APP_ID.js"></script>
+<script src="./facebookAppInit.js"></script>
+<script>
+    window.addEventListener('load', ()=>{
+        FB.getLoginStatus(function(response) {
+            console.log(response);
+        })
+    })
+</script>
 </html>
