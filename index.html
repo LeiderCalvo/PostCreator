@@ -7,8 +7,8 @@
 </head>
 <body>
     Hi¡ let's start
-    <fb:login-button 
-        scope="public_profile,email"
+    <fb:login-button data-auto-logout-link="true"
+        scope="public_profile,email,instagram_basic,pages_show_list"
         onlogin="checkLoginState();">
     </fb:login-button>
 
@@ -34,13 +34,24 @@
             console.log('Successful login for: ' + response.name);
             document.getElementById('status').innerHTML = `Thanks for logging in, ${response.name} !`;
         });
+
+        FB.api('/me/permissions', function(response) {
+            console.log(response);
+        });
     }
 
-    window.addEventListener('load', () => {
-        FB.getLoginStatus(function(response) {
-            response.status !== 'connected' &&
-                FB.login( response => checkLoginState(), {scope: 'public_profile,email'});            
-        });
-    });
+    window.addEventListener('load', () => checkLoginState());
+
+    /*
+        FB.login(
+            function(response) {
+                console.log(response);
+            },
+            {
+                scope: 'user_likes',
+                auth_type: 'rerequest'
+            }
+        );
+    */
 </script>
 </html>
