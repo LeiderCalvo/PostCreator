@@ -1,8 +1,12 @@
 ///https://youtu.be/v4jgr0ppw8Q
+
+var urlParams = new URLSearchParams(window.location.search);
+FB_APP_ID = urlParams.get('id');
+
 var FB;
 window.fbAsyncInit = function() {
     FB.init({
-        appId      : FB_APP_ID.id,
+        appId      : FB_APP_ID,
         cookie     : true,
         xfbml      : true,
         version    : 'v7.0'

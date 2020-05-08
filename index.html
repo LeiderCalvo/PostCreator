@@ -7,14 +7,40 @@
 </head>
 <body>
     Hi¡ let's start
+    <fb:login-button 
+        scope="public_profile,email"
+        onlogin="checkLoginState();">
+    </fb:login-button>
+
+    <div id="status"></div>
 </body>
 <script src="./FB_APP_ID.js"></script>
 <script src="./facebookAppInit.js"></script>
 <script>
-    window.addEventListener('load', ()=>{
+    function checkLoginState(){
         FB.getLoginStatus(function(response) {
-            console.log(response);
-        })
-    })
+            console.log(response)
+            if (response.status === 'connected') {
+                testAPI();
+            } else {
+                document.getElementById('status').innerHTML = 'Please log into this webpage.';
+            }
+        });
+    }
+
+    function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+            console.log('Successful login for: ' + response.name);
+            document.getElementById('status').innerHTML = `Thanks for logging in, ${response.name} !`;
+        });
+    }
+
+    window.addEventListener('load', () => {
+        FB.getLoginStatus(function(response) {
+            response.status !== 'connected' &&
+                FB.login( response => checkLoginState(), {scope: 'public_profile,email'});            
+        });
+    });
 </script>
 </html>
