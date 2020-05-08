@@ -1,3 +1,4 @@
+///https://youtu.be/v4jgr0ppw8Q
 var FB;
 window.fbAsyncInit = function() {
     FB.init({
@@ -8,8 +9,6 @@ window.fbAsyncInit = function() {
     });
     
     FB.AppEvents.logPageView();
-    
-    console.log(FB)
 };
 
 ( function(d, s, id) {
