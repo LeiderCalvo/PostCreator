@@ -4,54 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PostCreatorGCE</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.3/fabric.min.js'></script>
 </head>
 <body>
-    Hi¡ let's start
-    <fb:login-button data-auto-logout-link="true"
-        scope="public_profile,email,instagram_basic,pages_show_list"
-        onlogin="checkLoginState();">
-    </fb:login-button>
+    <canvas id='canvas' width="200" height="200"></canvas>
+    <button id='btn_right'>-></button>
+    <script>
+        var canvas = new fabric.Canvas('canvas');
 
-    <div id="status"></div>
+        var rect = new fabric.Rect({
+            left: 90,
+            top: 90,
+            fill: 'red',
+            width: 50,
+            height: 50
+        });
+
+        canvas.add(rect);
+
+        fabric.Image.fromURL('faro.jpg', img => {
+            console.log(img)
+            img.width = 50;
+            img.height = 50;
+            canvas.add(img);
+
+            img.animate('left', '+=90', {
+                onChange: canvas.renderAll.bind(canvas),
+                duration: 500,
+                easing: fabric.util.ease.easeOutBounce
+            })
+        })
+
+
+
+        btn_right.onclick = e => {
+            /*console.log(rect.left)
+            rect.left += 9;
+            canvas.renderAll();*/
+
+            canvas.get(0).toBlob(blob => {
+                
+            })
+        }
+    </script>
 </body>
-<script src="./FB_APP_ID.js"></script>
-<script src="./facebookAppInit.js"></script>
-<script>
-    function checkLoginState(){
-        FB.getLoginStatus(function(response) {
-            console.log(response)
-            if (response.status === 'connected') {
-                testAPI();
-            } else {
-                document.getElementById('status').innerHTML = 'Please log into this webpage.';
-            }
-        });
-    }
-
-    function testAPI() {
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function(response) {
-            console.log('Successful login for: ' + response.name);
-            document.getElementById('status').innerHTML = `Thanks for logging in, ${response.name} !`;
-        });
-
-        FB.api('/me/permissions', function(response) {
-            console.log(response);
-        });
-    }
-
-    window.addEventListener('load', () => checkLoginState());
-
-    /*
-        FB.login(
-            function(response) {
-                console.log(response);
-            },
-            {
-                scope: 'user_likes',
-                auth_type: 'rerequest'
-            }
-        );
-    */
-</script>
 </html>

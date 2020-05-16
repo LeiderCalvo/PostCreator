@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostCreatorGCE</title>
+</head>
+<body>
+    Hi¡ let's start
+    <fb:login-button data-auto-logout-link="false"
+        scope="public_profile,email,instagram_basic,pages_show_list"
+        onlogin="checkLoginState();">
+    </fb:login-button>
+
+    <div id="status"></div>
+</body>
+<script src="./FB_APP_ID.js"></script>
+<script src="./facebookAppInit.js"></script>
+<script>
+    function checkLoginState(){
+        FB.getLoginStatus(function(response) {
+            console.log(response)
+            if (response.status === 'connected') {
+                testAPI();
+            } else {
+                document.getElementById('status').innerHTML = 'Please log into this webpage.';
+            }
+        });
+    }
+
+    function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+            console.log('Successful login for: ' + response.name);
+            document.getElementById('status').innerHTML = `Thanks for logging in, ${response.name} !`;
+        });
+
+        FB.api('/me/permissions', function(response) {
+            console.log(response);
+        });
+    }
+
+    window.addEventListener('load', () => checkLoginState());
+
+    /*
+        FB.login(
+            function(response) {
+                console.log(response);
+            },
+            {
+                scope: 'user_likes',
+                auth_type: 'rerequest'
+            }
+        );
+    */
+</script>
+</html>
