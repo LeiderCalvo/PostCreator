@@ -82,23 +82,19 @@ document.querySelectorAll('.btn_add').forEach( btn =>
 
 //////////// Testing 
 
-var rect = new fabric.Rect();
-canvas.add(rect);
-
-
-
 /*img.animate('left', '+=90', {
     onChange: canvas.renderAll.bind(canvas),
     duration: 500,
     easing: fabric.util.ease.easeOutBounce
-})*/
+})
 
 btn_right.onclick = e => {
     /*console.log(rect.left)
     rect.left += 9;
-    canvas.renderAll();*/
-
+    canvas.renderAll();
+    
     canvas.get(0).toBlob(blob => {
         
     })
 }
+*/
