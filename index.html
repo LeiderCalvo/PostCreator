@@ -4,48 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PostCreatorGCE</title>
+    <link rel="stylesheet" href="styles/index.css">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.3/fabric.min.js'></script>
 </head>
-<body>
-    <canvas id='canvas' width="200" height="200"></canvas>
-    <button id='btn_right'>-></button>
-    <script>
-        var canvas = new fabric.Canvas('canvas');
+<body class="row">
+    <section class="components">
+        <h4>Select size of post</h4>
+        <select id="select_post_size"></select>
 
-        var rect = new fabric.Rect({
-            left: 90,
-            top: 90,
-            fill: 'red',
-            width: 50,
-            height: 50
-        });
+        <h4>Add text</h4>
+        <div class="row">
+            <input type="text" id="inpt_addtext">
+            <button id="btn_addtext">></button>
+        </div>
+    </section>
+    <canvas id='canvas' width="500px" height="500px"></canvas>
+    <section class="options">
+        <button id='btn_right'>-></button>
+    </section>
 
-        canvas.add(rect);
-
-        fabric.Image.fromURL('faro.jpg', img => {
-            console.log(img)
-            img.width = 50;
-            img.height = 50;
-            canvas.add(img);
-
-            img.animate('left', '+=90', {
-                onChange: canvas.renderAll.bind(canvas),
-                duration: 500,
-                easing: fabric.util.ease.easeOutBounce
-            })
-        })
-
-
-
-        btn_right.onclick = e => {
-            /*console.log(rect.left)
-            rect.left += 9;
-            canvas.renderAll();*/
-
-            canvas.get(0).toBlob(blob => {
-                
-            })
-        }
-    </script>
+    <script src="scripts/index.js"></script>
 </body>
 </html>
