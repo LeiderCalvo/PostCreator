@@ -56,27 +56,33 @@ function galleyImgOnClick() {
 inpt_fileloader.onchange =  e => {
     let acceptedFiles = e.target.files;
     var reader = new FileReader();
+    inpt_fileloader_msj.innerText = 'Cargando...';
     //let id = Math.random().toString(36).substr(2, 9), acceptedFiles[0].name;
     
     reader.onload = e => {
-        /*let p = this.document.querySelector(`#${'p'+id}`);
-        p.innerText = 'Cargado';
-        p.classList.remove('loading');*/
-        addImgToGallery(e.target.result)
+        inpt_fileloader_msj.innerText = 'sube tu archivo';
+        addImgToGallery(e.target.result);
+        inpt_fileloader.value = '';
     }
     reader.readAsDataURL(acceptedFiles[0]);
-    
 }
+
+document.querySelectorAll('.btn_add').forEach( btn =>
+    btn.onclick = e => {
+        canvas.add( new fabric[btn.dataset.figure]({
+            left: 90,
+            top: 90,
+            fill: 'red',
+            width: 50,
+            height: 50,
+            radius: 25
+        }) )
+    }
+)
 
 //////////// Testing 
 
-var rect = new fabric.Rect({
-    left: 90,
-    top: 90,
-    fill: 'red',
-    width: 50,
-    height: 50
-});
+var rect = new fabric.Rect();
 canvas.add(rect);
 
 
