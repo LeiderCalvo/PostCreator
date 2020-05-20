@@ -24,6 +24,18 @@ body{
         width: 25%;
         height: 100vh;
         border: solid 2px black;
+
+        #imgs_gallery{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+
+            img{
+                width: 30%;
+                margin: 1%;
+            }
+        }
     }
 
     #canvas{
