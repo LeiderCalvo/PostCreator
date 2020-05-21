@@ -56,23 +56,23 @@
 
         <h4>Text Align</h4>
         <div class="row">
-            <button>left</button>
-            <button>center</button>
-            <button>right</button>
-            <button>justify</button>
+            <button id="btn_left" data-prop="textAlign">left</button>
+            <button id="btn_center" data-prop="textAlign">center</button>
+            <button id="btn_rigth" data-prop="textAlign">right</button>
+            <button id="btn_justify" data-prop="textAlign">justify</button>
         </div>
 
         <h4>Style</h4>
         <div class="row">
-            <button>Bold</button>
-            <button>underline</button>
+            <button id="btn_bold" data-prop="fontWeight">Bold</button>
+            <button id="btn_underline" data-prop="underline">underline</button>
         </div>
 
         <h4>Line Height</h4>
-        <input type="range" id="">
+        <input type="range" id="inp_lineHeight" min="0.2" max='3' step="0.2" data-prop="lineHeight">
 
         <h4>Kerning</h4>
-        <input type="range" id="">
+        <input type="range" id="inp_kerning" min="0" max='1000' step="100" data-prop="charSpacing">
     </section>
 
     <script src="scripts/index.js"></script>

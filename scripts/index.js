@@ -58,7 +58,7 @@ select_post_size.addEventListener('change', e => {
 });
 
 btn_addtext.onclick = e => {
-    canvas.add( new fabric.Text( inpt_addtext.value, { left: 20, top: 20, fill: 'black'} ) );
+    canvas.add( new fabric.Textbox( inpt_addtext.value, { left: 20, top: 20, fill: 'black'} ) );
     inpt_addtext.value = '';
     canvas.renderAll(); 
 }
@@ -98,10 +98,24 @@ document.querySelectorAll('.btn_add').forEach( btn =>
 )
 
 //editing props
+
+//document.querySelectorAll('.inpt_change').forEach( inp)
+
 inp_opacity.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
 inp_color.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
 inp_font_family.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
 inp_font_size.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
+
+btn_left.onclick = e => changeProp(e.target.dataset.prop, 'left');
+btn_center.onclick = e => changeProp(e.target.dataset.prop, 'center');
+btn_rigth.onclick = e => changeProp(e.target.dataset.prop, 'right');
+btn_justify.onclick = e => changeProp(e.target.dataset.prop, 'justify');
+
+btn_underline.onclick = e => changeProp(e.target.dataset.prop, true);
+btn_bold.onclick = e => changeProp(e.target.dataset.prop, 'bold');
+
+inp_lineHeight.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
+inp_kerning.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
 
 //////////// Testing 
 
