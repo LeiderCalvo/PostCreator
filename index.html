@@ -36,16 +36,23 @@
 
     <section class="options">
         <h4>Opacity</h4>
-        <input type="range" id="">
+        <input type="range" id="inp_opacity" min="0" max="1" step="0.1" data-prop="opacity">
         
         <h4>Fill</h4>
-        <input type="color" id="">
+        <input type="color" id="inp_color" data-prop="fill">
 
         <h4>Font Family</h4>
-        <input type="text">
+        <select id="inp_font_family" data-prop="fontFamily">
+            <option>Serif</option>
+            <option>Arial</option>
+            <option>Sans-Serif</option>         
+            <option>Tahoma</option>
+            <option>Verdana</option>
+            <option>Lucida Sans Unicode</option>
+          </select>
 
-        <h4>Font Family</h4>
-        <input type="range" id="">
+        <h4>Font Size</h4>
+        <input type="range" min='10' max='60' id="inp_font_size" data-prop="fontSize">
 
         <h4>Text Align</h4>
         <div class="row">

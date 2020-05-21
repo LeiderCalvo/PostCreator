@@ -9,6 +9,7 @@ const ig_post_sizes = [
 const imgs_gallery_urls = ['Crisantemo.jpg', 'Desert.jpg', 'Faro.jpg', 'Fish.jpg',  'Flower.jpg', 'Koala.jpg',  'Penguins.jpg', 'Tulips.jpg'];
 
 var canvas = new fabric.Canvas('canvas');
+var activeObject;
 
 (e => {
     ig_post_sizes.forEach( ps => {
@@ -32,7 +33,23 @@ function addImgToGallery(url) {
     imgs_gallery.appendChild(img);
 }
 
+function setActiveObject(){
+    activeObject = canvas.getActiveObject();
+}
+
+function changeProp (prop, val) {
+    if(activeObject === undefined) return;
+    let obj = {};
+    obj[prop] = val;
+    activeObject.set(obj)
+    canvas.renderAll()
+}
+
 //LISTENERS
+canvas.on('selection:created', setActiveObject);
+canvas.on('selection:updated', setActiveObject);
+canvas.on('selection:cleared', e => activeObject = undefined );
+
 select_post_size.addEventListener('change', e => {
     var arr_ps = ig_post_sizes.filter(ps => ps.name === e.target.value);
     canvas.setWidth( arr_ps[0].w/3 );
@@ -79,6 +96,12 @@ document.querySelectorAll('.btn_add').forEach( btn =>
         }) )
     }
 )
+
+//editing props
+inp_opacity.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
+inp_color.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
+inp_font_family.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
+inp_font_size.onchange = e => changeProp(e.target.dataset.prop, e.target.value);
 
 //////////// Testing 
 

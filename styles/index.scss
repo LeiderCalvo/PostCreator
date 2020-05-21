@@ -22,7 +22,7 @@ body{
     align-items: center;
     section{
         width: 25%;
-        height: 100vh;
+        min-height: 100vh;
         border: solid 2px black;
 
         #imgs_gallery{
@@ -40,6 +40,15 @@ body{
 
     #canvas{
         border: solid 2px black;
+    }
+
+    .options{
+        .row{
+            flex-wrap: wrap;
+            button{
+                width: 50%;
+            }
+        }
     }
 }
 
