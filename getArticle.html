@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <p id='time'></p>
+    <div id="openweathermap-widget-11"></div>
+    <section id="wheater"></section>
+
+    <section id="rates"></section>
+
+
+    <input type="text" id="inpt" value="https://medium.com/@camilomontoyau/react-es-solamente-js-bfa30a63079b">
+    <button id="btn">>>>>>></button>
+
+    <h2 id="title"></h2>
+    <p id="resum"></p>
+</body>
+<script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
+<script>
+    window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = []; window.myWidgetParam.push({ id: 11, cityid: '3687925', appid: '043f7643e948463f55598a0fb90a5a38', units: 'metric', containerid: 'openweathermap-widget-11', }); (function () { var script = document.createElement('script'); script.async = true; script.charset = "utf-8"; script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js"; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s); })();</script>
+<script>
+
+    (e => {
+        var a = new Date();
+        a = a.toString();
+        a = a.slice(0, a.indexOf('G'));
+
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=cali&appid=043f7643e948463f55598a0fb90a5a38&lang=es&units=metric`, { method: 'GET' })
+            .then(e => e.json())
+            .then(e => {
+                console.log(e);
+                document.querySelector('#wheater').innerHTML = `
+                <h3>wheater at ${e.name}, ${e.sys.country}</h3>
+                <div>${e.weather[0].description}, ${e.weather[0].main} ${e.weather[0].icon}</div>
+                <p>temperatura: ${e.main.temp}ºCentigrados</p>
+                <p>temperatura max: ${e.main.temp_max} ºCentigrados</p>
+                <p>temperatura min: ${e.main.temp_min} ºCentigrados</p>
+                <p>presion atmosferica: ${e.main.pressure} hPa</p>
+                <p>sensacion termica: ${e.main.feels_like} ºCentigrados</p>
+                <p>humedad: ${e.main.humidity} %</p>
+                <p>velocidad del viento: ${e.wind.speed} m/sg</p>
+                `;
+            })
+            .catch(e => console.log(e))
+
+            //https://exchangeratesapi.io/
+
+            fetch(`https://api.exchangeratesapi.io/latest`, { method: 'GET' })
+            .then(e => e.json())
+            .then(e => {
+                console.log(e);
+                document.querySelector('#rates').innerHTML = `
+                <h3>Base ${e.base}</h3>
+                `;
+                for (const key in e.rates) {
+                    if (e.rates.hasOwnProperty(key)) {
+                        const a = e.rates[key];
+                        var r = document.createElement('p');
+                        r.innerText = `${key}: ${a}`;
+                        rates.appendChild(r);
+                    }
+                }
+
+            })
+            .catch(e => console.log(e))
+
+
+        setInterval(e => {
+            var a = new Date();
+            a = a.toString();
+            a = a.slice(0, a.indexOf('G'));
+            time.innerText = a;
+        }, 1000)
+    })()
+
+    btn.onclick = e => {
+        //https://cors-anywhere.herokuapp.com/
+        //https://home.openweathermap.org/api_keys
+        //wheater 043f7643e948463f55598a0fb90a5a38
+
+        fetch(`https://boilerpipe-web.appspot.com/extract?url=${inpt.value}&extractor=ArticleExtractor&output=json`, { method: 'GET' })
+            .then(e => e.json())
+            .then(e => {
+                console.log(e);
+                title.innerText = e.response.title;
+                let i = e.response.content.indexOf('.', 500);
+                resum.innerText = `${e.response.content.slice(0, i + 1)}`;
+            })
+            .catch(e => console.log(e))
+        //httpGet(inpt.value)
+
+        //httpGet(inpt.value)
+    }
+
+    function sd(theUrl) {
+        var cors_api_host = 'cors-anywhere.herokuapp.com';
+        var cors_api_url = 'https://' + cors_api_host + '/';
+        var slice = [].slice;
+        var origin = window.location.protocol + '//' + window.location.host;
+        var open = XMLHttpRequest.prototype.open;
+        console.log(origin)
+        XMLHttpRequest.prototype.open = function () {
+            var args = slice.call(arguments);
+            var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
+            if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
+                targetOrigin[1] !== cors_api_host) {
+                args[1] = cors_api_url + args[1];
+            }
+            return open.apply(this, args);
+        };
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.setRequestHeader('Retry-After', 1200);
+        xmlHttp.send(null);
+        console.log(xmlHttp.responseText);
+        return xmlHttp.responseText;
+    }
+
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
+        console.log(xmlHttp.responseText);
+        return xmlHttp.responseText;
+    }
+</script>
+
+</html>
