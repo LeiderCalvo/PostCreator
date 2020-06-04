@@ -7,14 +7,30 @@
     <title>Document</title>
 
 </head>
+<style>
+    .row{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
 
+    .row section{
+        width: 24%;
+    }
+</style>
 <body>
 
     <p id='time'></p>
     <div id="openweathermap-widget-11"></div>
     <section id="wheater"></section>
 
-    <section id="rates"></section>
+    <div class="row">
+        <section id="euro"></section>
+        <div id="dolar"></div>
+        <div id="yen"></div>
+        <div id="dcanada"></div>
+    </div>
 
 
     <input type="text" id="inpt" value="https://medium.com/@camilomontoyau/react-es-solamente-js-bfa30a63079b">
@@ -56,8 +72,7 @@
             fetch(`https://api.exchangeratesapi.io/latest`, { method: 'GET' })
             .then(e => e.json())
             .then(e => {
-                console.log(e);
-                document.querySelector('#rates').innerHTML = `
+                document.querySelector('#euro').innerHTML = `
                 <h3>Base ${e.base}</h3>
                 `;
                 for (const key in e.rates) {
@@ -65,7 +80,61 @@
                         const a = e.rates[key];
                         var r = document.createElement('p');
                         r.innerText = `${key}: ${a}`;
-                        rates.appendChild(r);
+                        euro.appendChild(r);
+                    }
+                }
+
+            })
+            .catch(e => console.log(e))
+
+            fetch(`https://api.exchangeratesapi.io/latest?base=USD`, { method: 'GET' })
+            .then(e => e.json())
+            .then(e => {
+                document.querySelector('#dolar').innerHTML = `
+                <h3>Base ${e.base}</h3>
+                `;
+                for (const key in e.rates) {
+                    if (e.rates.hasOwnProperty(key)) {
+                        const a = e.rates[key];
+                        var r = document.createElement('p');
+                        r.innerText = `${key}: ${a}`;
+                        dolar.appendChild(r);
+                    }
+                }
+
+            })
+            .catch(e => console.log(e))
+
+            fetch(`https://api.exchangeratesapi.io/latest?base=JPY`, { method: 'GET' })
+            .then(e => e.json())
+            .then(e => {
+                document.querySelector('#yen').innerHTML = `
+                <h3>Base ${e.base}</h3>
+                `;
+                for (const key in e.rates) {
+                    if (e.rates.hasOwnProperty(key)) {
+                        const a = e.rates[key];
+                        var r = document.createElement('p');
+                        r.innerText = `${key}: ${a}`;
+                        yen.appendChild(r);
+                    }
+                }
+
+            })
+            .catch(e => console.log(e))
+
+            fetch(`https://api.exchangeratesapi.io/latest?base=CAD`, { method: 'GET' })
+            .then(e => e.json())
+            .then(e => {
+                document.querySelector('#dcanada').innerHTML = `
+                <h3>Base ${e.base}</h3>
+                `;
+                for (const key in e.rates) {
+                    if (e.rates.hasOwnProperty(key)) {
+                        const a = e.rates[key];
+                        var r = document.createElement('p');
+                        r.innerText = `${key}: ${a}`;
+                        dcanada.appendChild(r);
                     }
                 }
 
